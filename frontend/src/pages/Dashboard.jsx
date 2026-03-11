@@ -350,7 +350,7 @@ const Dashboard = () => {
               {dynamicStatsCards.map((card, index) => (
                 <div
                   key={index}
-                  className="bg-card rounded-2xl p-6 shadow-sm border border-border"
+                  className="bg-card rounded-2xl p-6 shadow-sm border border-border hover:shadow-lg hover:-translate-y-1 hover:border-teal-500/40 transition-all duration-300 cursor-pointer"
                 >
                   <div className="flex items-center justify-between mb-4">
                     <div className={`p-3 rounded-xl ${card.iconBg}`}>
@@ -377,7 +377,7 @@ const Dashboard = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                   {coursesData.allCourses.slice(0, 3).map((course, index) => (
                     <Link to={`/learning/${course.id}`} key={index}>
-                      <div className="bg-card rounded-xl border border-border overflow-hidden shadow-sm h-full">
+                      <div className="bg-card rounded-xl border border-border overflow-hidden shadow-sm h-full hover:shadow-lg hover:-translate-y-1 hover:border-teal-500/40 transition-all duration-300">
                         <div className="relative">
                           <img
                             src={course.image}
@@ -567,7 +567,7 @@ const Dashboard = () => {
               </div>
 
               {/* Course Topics Chart */}
-              <div className="bg-card rounded-2xl p-6 shadow-sm border border-border">
+              <div className="bg-card rounded-2xl p-6 shadow-sm border border-border hover:shadow-lg hover:-translate-y-1 hover:border-teal-500/40 transition-all duration-300">
                 <h2 className="text-xl font-bold text-main mb-6">
                   Course Topics
                 </h2>
@@ -638,7 +638,7 @@ const Dashboard = () => {
                 <h2 className="text-xl font-bold text-main mb-6">
                   My Courses
                 </h2>
-                <div className="bg-card rounded-xl border border-border overflow-hidden">
+                <div className="bg-card rounded-xl border border-border overflow-hidden hover:shadow-lg hover:border-teal-500/40 transition-all duration-300">
                   <div className="overflow-x-auto">
                     <table className="w-full">
                       <thead className="bg-canvas-alt">
@@ -718,7 +718,7 @@ const Dashboard = () => {
                   {continueLearning.map((item, index) => (
                     <div
                       key={index}
-                      className="bg-card rounded-xl p-4 border border-border shadow-sm hover:shadow-md transition-shadow"
+                      className="bg-card rounded-xl p-4 border border-border shadow-sm hover:shadow-lg hover:-translate-y-1 hover:border-teal-500/40 transition-all duration-300"
                     >
                       <div className="flex items-center">
                         <Link
@@ -755,7 +755,89 @@ const Dashboard = () => {
                     </div>
                   ))}
                 </div>
-              </div> */}
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
+              {/* Calendar */}
+              <div className="xl:col-span-3 bg-card rounded-xl p-6 border border-border hover:shadow-lg hover:border-teal-500/40 transition-all duration-300">
+                <div className="flex items-center justify-between mb-6">
+                  <h2 className="text-xl font-bold text-main">
+                    Class Calendar
+                  </h2>
+                  <div className="flex items-center space-x-4">
+                    <button className="p-2 bg-gray-100 text-black rounded-lg">
+                      <ChevronLeftIcon className="w-4 h-4" />
+                    </button>
+                    <span className="text-lg font-medium">December 2024</span>
+                    <button className="p-2 bg-gray-100 text-black rounded-lg">
+                      <ChevronRight className="w-4 h-4" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-7 gap-px mb-4">
+                  {["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"].map(
+                    (day) => (
+                      <div
+                        key={day}
+                        className="p-3 text-center text-sm font-medium text-muted"
+                      >
+                        {day}
+                      </div>
+                    ),
+                  )}
+                </div>
+
+                <div className="grid grid-cols-7 gap-px">
+                  {Array.from({ length: 31 }, (_, i) => (
+                    <div
+                      key={i + 1}
+                      className={`p-3 text-center text-sm ${[3, 5, 9, 12, 16, 19, 23].includes(i + 1)
+                        ? "bg-blue-50 dark:bg-blue-100 text-blue-900 rounded-lg"
+                        : "text-main hover:bg-canvas-alt rounded-lg"
+                        }`}
+                    >
+                      {i + 1}
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex items-center space-x-6 mt-6 text-sm">
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-blue-500 rounded-full mr-2"></div>
+                    <span className="text-muted">Upcoming</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                    <span className="text-muted">Completed</span>
+                  </div>
+                  <div className="flex items-center">
+                    <div className="w-3 h-3 bg-red-500 rounded-full mr-2"></div>
+                    <span className="text-muted">Missed</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Today's Schedule */}
+              <div className="bg-card rounded-xl p-6 border border-border hover:shadow-lg hover:border-teal-500/40 transition-all duration-300">
+                <h3 className="text-lg font-semibold text-main mb-4">
+                  Today's Schedule
+                </h3>
+                <div className="space-y-3">
+                  {schedule.map((item, index) => (
+                    <div
+                      key={index}
+                      className={`p-3 rounded-lg border-l-4 ${item.color}`}
+                    >
+                      <h4 className="font-medium text-black mb-1">
+                        {item.title}
+                      </h4>
+                      <p className="text-sm text-muted">{item.time}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
         </main>
