@@ -51,6 +51,11 @@ CommunityPost.init(
       type: DataTypes.JSONB,
       defaultValue: [],
     },
+    hiddenAt: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      defaultValue: null,
+    },
   },
   {
     sequelize,
