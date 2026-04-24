@@ -167,24 +167,107 @@ const CertificatesPage = () => {
 
               {/* Certificates Grid */}
               {courses.length === 0 ? (
-                <div className="bg-white dark:bg-[#2D3436] rounded-2xl p-16 text-center shadow-md border border-gray-100 dark:border-gray-700">
-                  <div className="inline-flex items-center justify-center w-20 h-20 bg-amber-100 dark:bg-amber-900/30 rounded-full mb-5">
-                    <Award className="w-10 h-10 text-amber-500" />
+                <div className="bg-white dark:bg-[#2D3436] rounded-2xl shadow-md border border-gray-100 dark:border-gray-700 overflow-hidden">
+                  <div className="grid grid-cols-1 lg:grid-cols-2 min-h-[420px]">
+                    {/* Left: Empty State */}
+                    <div className="flex flex-col items-center justify-center p-12 text-center">
+                      <div className="inline-flex items-center justify-center w-20 h-20 bg-amber-100 dark:bg-amber-900/30 rounded-full mb-5">
+                        <Award className="w-10 h-10 text-amber-500" />
+                      </div>
+                      <h3 className="text-xl font-bold text-[#2D3436] dark:text-gray-200 mb-2">
+                        {t("certificates.no_courses_title")}
+                      </h3>
+                      <p className="text-[#2D3436]/60 dark:text-gray-400 mb-6 max-w-sm">
+                        {t("certificates.no_courses_desc")}
+                      </p>
+                      <Link
+                        to="/courses"
+                        className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold rounded-xl hover:from-amber-600 hover:to-yellow-600 transition-all shadow-lg hover:shadow-xl"
+                      >
+                        <BookOpen className="w-5 h-5" />
+                        {t("certificates.browse_courses")}
+                        <ChevronRight className="w-4 h-4" />
+                      </Link>
+                    </div>
+
+                    {/* Right: Certificate Preview */}
+                    <div className="relative bg-gradient-to-br from-indigo-50 via-purple-50 to-blue-50 dark:from-indigo-950/40 dark:via-purple-950/40 dark:to-blue-950/40 flex flex-col items-center justify-center p-8 border-l border-gray-100 dark:border-gray-700">
+                      {/* Label */}
+                      <p className="text-xs font-semibold tracking-widest uppercase text-indigo-400 dark:text-indigo-300 mb-4">
+                        🏆 Certificate Preview
+                      </p>
+
+                      {/* Certificate Card */}
+                      <div className="w-full max-w-sm bg-white dark:bg-gray-900 rounded-xl shadow-2xl border-2 border-indigo-300 dark:border-indigo-600 overflow-hidden relative">
+                        {/* Top color bar */}
+                        <div className="h-2 bg-gradient-to-r from-indigo-500 via-purple-500 to-blue-500" />
+
+                        <div className="p-6 text-center">
+                          {/* Logo placeholder */}
+                          <div className="flex items-center justify-center gap-1.5 mb-1">
+                            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+                              <Award className="w-3.5 h-3.5 text-white" />
+                            </div>
+                            <span className="font-black text-sm tracking-tight">
+                              <span className="text-[#00bea3]">UPTO</span>
+                              <span className="text-orange-500">SKILLS</span>
+                            </span>
+                          </div>
+                          <p className="text-[10px] text-indigo-400 italic mb-4">Learn and Earn Platform</p>
+
+                          {/* Title */}
+                          <h4 className="text-lg font-bold text-gray-800 dark:text-white tracking-wide mb-0.5">
+                            Certificate of Completion
+                          </h4>
+                          <div className="h-0.5 w-16 bg-gradient-to-r from-indigo-400 to-purple-400 mx-auto mb-4 rounded-full" />
+
+                          <p className="text-[11px] text-gray-400 mb-1">This is to certify that</p>
+                          <p className="text-base font-extrabold text-gray-800 dark:text-white mb-0.5 italic">
+                            Your Name
+                          </p>
+                          <div className="h-px w-28 bg-gray-300 dark:bg-gray-600 mx-auto mb-3" />
+
+                          <p className="text-[11px] text-gray-400 mb-1">has successfully completed</p>
+                          <p className="text-[13px] font-bold text-indigo-600 dark:text-indigo-400 mb-3">
+                            "Course Name"
+                          </p>
+
+                          {/* Bottom bar */}
+                          <div className="mt-4 pt-3 border-t border-gray-100 dark:border-gray-700 flex justify-between items-end">
+                            <div className="text-left">
+                              <p className="text-[9px] text-gray-400 uppercase tracking-wider">Issue Date</p>
+                              <p className="text-[11px] font-semibold text-gray-700 dark:text-gray-300">
+                                {new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" })}
+                              </p>
+                            </div>
+                            <div className="flex flex-col items-center">
+                              <div className="w-8 h-8 rounded-full border-2 border-indigo-300 flex items-center justify-center bg-indigo-50 dark:bg-indigo-900/30">
+                                <CheckCircle className="w-4 h-4 text-indigo-500" />
+                              </div>
+                              <p className="text-[8px] text-indigo-400 mt-0.5">VERIFIED</p>
+                            </div>
+                            <div className="text-right">
+                              <p className="text-[9px] text-gray-400 uppercase tracking-wider">Certificate ID</p>
+                              <p className="text-[11px] font-mono font-semibold text-gray-700 dark:text-gray-300">
+                                UTS-XXXXX
+                              </p>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Watermark */}
+                        <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none opacity-[0.04]">
+                          <span className="text-6xl font-black text-gray-900 dark:text-white rotate-[-30deg] tracking-widest">
+                            UPTOSKILLS
+                          </span>
+                        </div>
+                      </div>
+
+                      <p className="mt-4 text-[11px] text-gray-400 dark:text-gray-500 text-center max-w-xs">
+                        Complete any course to earn your personalized certificate like this one!
+                      </p>
+                    </div>
                   </div>
-                  <h3 className="text-xl font-bold text-[#2D3436] dark:text-gray-200 mb-2">
-                    {t("certificates.no_courses_title")}
-                  </h3>
-                  <p className="text-[#2D3436]/60 dark:text-gray-400 mb-6 max-w-md mx-auto">
-                    {t("certificates.no_courses_desc")}
-                  </p>
-                  <Link
-                    to="/courses"
-                    className="inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-semibold rounded-xl hover:from-amber-600 hover:to-yellow-600 transition-all shadow-lg hover:shadow-xl"
-                  >
-                    <BookOpen className="w-5 h-5" />
-                    {t("certificates.browse_courses")}
-                    <ChevronRight className="w-4 h-4" />
-                  </Link>
                 </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
