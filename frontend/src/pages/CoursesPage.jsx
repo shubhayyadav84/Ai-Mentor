@@ -160,9 +160,9 @@ const CoursesPage = () => {
   }
 
   const filteredExploreCourses = exploreCourses
-  .filter((course) =>
-    !myCourses.some((c) => String(c.id) === String(course.id))
-  )
+    .filter((course) =>
+      !myCourses.some((c) => String(c.id) === String(course.id))
+    )
     .filter((course) => {
       if (searchQuery.trim() !== "") {
         return course.title.toLowerCase().includes(searchQuery.toLowerCase());
