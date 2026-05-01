@@ -178,15 +178,6 @@ button{
 .wizard-progress-bar {
   transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
-
 /* Selected option highlight pulse */
 @keyframes option-select {
   0% { transform: scale(1); }
