@@ -354,7 +354,7 @@ const Dashboard = () => {
   }
 
   return (
-    <main className="flex-1 overflow-x-hidden overflow-y-auto bg-canvas-alt p-6">
+    <main className="flex-1 overflow-x-hidden overflow-y-auto bg-canvas-alt p-4">
       <Preferences
         key={localStorage.getItem("token")}
         mode="modal"
@@ -362,9 +362,9 @@ const Dashboard = () => {
           console.log("Preferences saved");
         }}
       />
-      <div className="max-w-7xl pt-16 mx-auto space-y-8">
+      <div className="max-w-7xl pt-4 mx-auto space-y-5">
         {/* Stats Cards */}
-        <div className="grid grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {dynamicStatsCards.map((card, index) => {
             const statLabelKeys = [
               "ongoing_courses",
@@ -396,103 +396,101 @@ const Dashboard = () => {
           })}
         </div>
 
-        <div className="grid grid-cols-1 gap-8">
-          {/* Popular Courses */}
+        {/* Popular Courses */}
+        <div>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-xl font-bold text-main">
+              {t("dashboard.popular_courses")}
+            </h2>
 
-          <div>
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-xl font-bold text-main">
-                {t("dashboard.popular_courses")}
-              </h2>
+            {/* Buttons */}
+            <div className="flex gap-2">
+              <button
+                onClick={() => {
+                  document.getElementById("courseSlider").scrollBy({
+                    left: -300,
+                    behavior: "smooth",
+                  });
+                }}
+                className="p-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
 
-              {/* Buttons */}
-              <div className="flex gap-2">
-                <button
-                  onClick={() => {
-                    document.getElementById("courseSlider").scrollBy({
-                      left: -300,
-                      behavior: "smooth",
-                    });
-                  }}
-                  className="p-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
-                >
-                  <ChevronLeft className="w-4 h-4" />
-                </button>
-
-                <button
-                  onClick={() => {
-                    document.getElementById("courseSlider").scrollBy({
-                      left: 300,
-                      behavior: "smooth",
-                    });
-                  }}
-                  className="p-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
-                >
-                  <ChevronRight className="w-4 h-4" />
-                </button>
-              </div>
-            </div>
-
-            {/* Slider */}
-            <div
-              id="courseSlider"
-              className="flex gap-6 overflow-x-auto px-3 py-3 pb-6"
-            >
-              {coursesData.allCourses.slice(0, 10).map((course, index) => (
-                <div
-                  key={index}
-                  className="bg-card rounded-xl border border-border w-64 flex-shrink-0 shadow-sm transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.03] hover:border-teal-400/50"
-                >
-                  {/* Image */}
-                  <div className="relative h-40">
-                    <img
-                      src={course.image}
-                      alt={course.title}
-                      className="w-full h-full object-cover rounded-t-xl"
-                      loading="lazy"
-                    />
-
-                    {/* Rating & Reviews */}
-                    <div className="absolute bottom-2 right-2">
-                      <CourseCardMeta courseId={course.id} />
-                    </div>
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-4 space-y-2">
-                    <h3 className="text-sm font-semibold text-main line-clamp-2">
-                      {course.title}
-                    </h3>
-
-                    <p className="text-xs text-muted">
-                      {course.lessons} • {course.level}
-                    </p>
-
-                    {(() => {
-                      const isEnrolled = Array.isArray(user?.purchasedCourses) && user.purchasedCourses.some(c => String(c?.id ?? c?.courseId ?? c?.course?.id) === String(course.id));
-                      return (
-                        <div className="flex justify-between items-center mt-2">
-                          <span className="font-bold text-green-500">
-                            {course.priceValue === 0
-                              ? "Free"
-                              : `₹${course.priceValue}`}
-                          </span>
-
-                          <button
-                            onClick={() => enrollAndPreview(course)}
-                            disabled={isEnrolled}
-                            className={`px-3 py-1.5 text-xs rounded-lg ${isEnrolled ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-teal-500 text-white hover:bg-teal-600'}`}
-                          >
-                            {isEnrolled ? 'Enrolled' : t("dashboard.enroll")}
-                          </button>
-                        </div>
-                      )
-                    })()}
-                  </div>
-                </div>
-              ))}
+              <button
+                onClick={() => {
+                  document.getElementById("courseSlider").scrollBy({
+                    left: 300,
+                    behavior: "smooth",
+                  });
+                }}
+                className="p-2 bg-gray-800 text-white rounded-lg hover:bg-gray-700"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
             </div>
           </div>
+
+          {/* Slider */}
+          <div
+            id="courseSlider"
+            className="flex gap-6 overflow-x-auto px-3 py-3 pb-6"
+          >
+            {coursesData.allCourses.slice(0, 10).map((course, index) => (
+              <div
+                key={index}
+                className="bg-card rounded-xl border border-border w-64 flex-shrink-0 shadow-sm transition-all duration-300 ease-out hover:shadow-xl hover:-translate-y-2 hover:scale-[1.03] hover:border-teal-400/50"
+              >
+                {/* Image */}
+                <div className="relative h-40">
+                  <img
+                    src={course.image}
+                    alt={course.title}
+                    className="w-full h-full object-cover rounded-t-xl"
+                    loading="lazy"
+                  />
+
+                  {/* Rating & Reviews */}
+                  <div className="absolute bottom-2 right-2">
+                    <CourseCardMeta courseId={course.id} />
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="p-4 space-y-2">
+                  <h3 className="text-sm font-semibold text-main line-clamp-2">
+                    {course.title}
+                  </h3>
+
+                  <p className="text-xs text-muted">
+                    {course.lessons} • {course.level}
+                  </p>
+
+                  {(() => {
+                    const isEnrolled = Array.isArray(user?.purchasedCourses) && user.purchasedCourses.some(c => String(c?.id ?? c?.courseId ?? c?.course?.id) === String(course.id));
+                    return (
+                      <div className="flex justify-between items-center mt-2">
+                        <span className="font-bold text-green-500">
+                          {course.priceValue === 0
+                            ? "Free"
+                            : `₹${course.priceValue}`}
+                        </span>
+
+                        <button
+                          onClick={() => enrollAndPreview(course)}
+                          disabled={isEnrolled}
+                          className={`px-3 py-1.5 text-xs rounded-lg ${isEnrolled ? 'bg-emerald-100 text-emerald-700 cursor-default' : 'bg-teal-500 text-white hover:bg-teal-600'}`}
+                        >
+                          {isEnrolled ? 'Enrolled' : t("dashboard.enroll")}
+                        </button>
+                      </div>
+                    )
+                  })()}
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
 
           {/* My Courses Table */}
           <div className="xl:col-span-2 flex flex-col">
@@ -676,7 +674,6 @@ const Dashboard = () => {
             }
           </div>
         </div>
-      </div>
       <FloatingAssistant />
     </main>
   );

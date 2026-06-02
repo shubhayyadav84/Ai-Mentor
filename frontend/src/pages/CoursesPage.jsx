@@ -153,6 +153,85 @@ const CoursesPage = () => {
         }
     };
 
+    // Drag-to-scroll, wheel horizontal scroll, and scroll-snap toggle for horizontal Explore Courses section
+    useEffect(() => {
+        const el = scrollRef.current;
+        if (!el) return;
+
+        let isDown = false;
+        let hasMoved = false;
+        let startX;
+        let scrollLeftVal;
+
+        const handleMouseDown = (e) => {
+            if (e.button !== 0) return; // Only drag with left click
+            isDown = true;
+            hasMoved = false;
+            el.style.scrollSnapType = "none"; // Temporarily disable snapping during drag
+            el.style.cursor = "grabbing";
+            startX = e.pageX - el.offsetLeft;
+            scrollLeftVal = el.scrollLeft;
+        };
+
+        const handleMouseLeave = () => {
+            if (isDown) {
+                el.style.scrollSnapType = "x mandatory";
+            }
+            isDown = false;
+            el.style.cursor = "grab";
+        };
+
+        const handleMouseUp = () => {
+            if (isDown) {
+                el.style.scrollSnapType = "x mandatory";
+            }
+            isDown = false;
+            el.style.cursor = "grab";
+        };
+
+        const handleMouseMove = (e) => {
+            if (!isDown) return;
+            const x = e.pageX - el.offsetLeft;
+            const walk = (x - startX) * 1.5; // Scroll speed factor
+            if (Math.abs(x - startX) > 5) {
+                hasMoved = true;
+            }
+            e.preventDefault();
+            el.scrollLeft = scrollLeftVal - walk;
+        };
+
+        const handleWheel = (e) => {
+            if (e.deltaY === 0) return;
+            e.preventDefault();
+            el.scrollLeft += e.deltaY;
+        };
+
+        const handleClick = (e) => {
+            if (hasMoved) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        };
+
+        el.addEventListener("mousedown", handleMouseDown);
+        el.addEventListener("mouseleave", handleMouseLeave);
+        el.addEventListener("mouseup", handleMouseUp);
+        el.addEventListener("mousemove", handleMouseMove);
+        el.addEventListener("wheel", handleWheel, { passive: false });
+        el.addEventListener("click", handleClick, true); // Capture phase to prevent accidental card/button clicks during drag
+
+        el.style.cursor = "grab";
+
+        return () => {
+            el.removeEventListener("mousedown", handleMouseDown);
+            el.removeEventListener("mouseleave", handleMouseLeave);
+            el.removeEventListener("mouseup", handleMouseUp);
+            el.removeEventListener("mousemove", handleMouseMove);
+            el.removeEventListener("wheel", handleWheel);
+            el.removeEventListener("click", handleClick, true);
+        };
+    }, [activeTab]);
+
     /* ================= ENROLL & PAYMENT ================= */
     const [isPurchasing, setIsPurchasing] = useState(false);
 

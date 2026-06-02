@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { sequelize } from "../config/db.js";
 
 class Admin extends Model { }
@@ -13,7 +13,6 @@ Admin.init(
     },
     displayId: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       unique: true,
     },
     name: {

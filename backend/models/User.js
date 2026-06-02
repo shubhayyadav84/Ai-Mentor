@@ -1,6 +1,6 @@
 // backend/models/User.js
 import { DataTypes, Model } from "sequelize";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 import { sequelize } from "../config/db.js";
 
 class User extends Model { }
@@ -14,7 +14,6 @@ User.init(
     },
     displayId: {
       type: DataTypes.INTEGER,
-      autoIncrement: true,
       unique: true,
     },
 
