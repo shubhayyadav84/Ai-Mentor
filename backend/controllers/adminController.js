@@ -46,6 +46,12 @@ const registerAdmin = async (req, res) => {
 const loginAdmin = async (req, res) => {
   const { email, password } = req.body;
 
+  if (!email || !password) {
+    return res
+      .status(400)
+      .json({ message: "Email and password are required" });
+  }
+
   try {
     const admin = await Admin.findOne({ where: { email } });
 

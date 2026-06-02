@@ -3,6 +3,7 @@ import { Star, X, BookOpen, Search, ChevronLeft, ChevronRight } from "lucide-rea
 import { useAuth } from "../context/AuthContext";
 import { useNavigate, useLocation } from "react-router-dom";
 import API_BASE_URL from "../lib/api";
+import { loadRazorpayScript } from "../lib/loadRazorPay";
 import { useTranslation } from "react-i18next";
 import ReportModal from "../components/common/ReportModal";
 import toast from "react-hot-toast";

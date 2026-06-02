@@ -17,7 +17,7 @@ const routeToPage = {
 
 const DashboardLayout = () => {
   const location = useLocation();
-  const { sidebarCollapsed } = useSidebar();
+  const { sidebarCollapsed, isDesktop } = useSidebar();
 
   // Derive activePage from the current path
   const activePage =
@@ -29,8 +29,8 @@ const DashboardLayout = () => {
       <Header />
       <Sidebar activePage={activePage} />
       <div
-        className={`flex-1 flex flex-col transition-all duration-300 mt-[4.5rem] ${
-          sidebarCollapsed ? "lg:ml-20" : "lg:ml-80"
+        className={`flex-1 flex flex-col transition-[margin-left] duration-300 mt-[4.5rem] ${
+          isDesktop ? (sidebarCollapsed ? "ml-20" : "ml-80") : ""
         }`}
       >
         <Outlet />
