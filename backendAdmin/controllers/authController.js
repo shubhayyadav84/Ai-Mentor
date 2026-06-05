@@ -152,7 +152,7 @@ export const changePassword = async (req, res) => {
     res.status(500).json({ message: "Server error" });
   }
 };
-export const updateAdminStatus = async (req, res) =>>,StartLine:150,TargetContent: {
+export const updateAdminStatus = async (req, res) => {
   try {
     const { id } = req.params;
     const { status } = req.body;
