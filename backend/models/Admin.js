@@ -35,6 +35,10 @@ Admin.init(
       type: DataTypes.ENUM("superAdmin", "admin"),
       defaultValue: "admin",
     },
+    status: {
+      type: DataTypes.ENUM("active", "on-hold"),
+      defaultValue: "active",
+    },
   },
   {
     sequelize,
