@@ -6,11 +6,11 @@ import {
     createCalendarTask,
     updateCalendarTask,
     deleteCalendarTask,
-} from "../controllers/calendarTaskController.js";
+} from "../controllers/CalendarTaskController.js";
 import {
     createCalendarTaskSchema,
     updateCalendarTaskSchema,
-} from "../schemas/calendarTaskSchema.js";
+} from "../schemas/CalendarTaskSchema.js";
 const router = express.Router();
 router.route("/")
     .get(protect, getCalendarTasks)
