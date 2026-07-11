@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { apiFetch } from "../lib/api";
 import { Link } from "react-router-dom";
 import {
   BookOpen,
@@ -81,9 +82,9 @@ const Analytics = () => {
         const token = localStorage.getItem("token");
         const headers = { Authorization: `Bearer ${token}` };
 
-        const coursesRes = await fetch("/api/courses", { headers });
-        const analyticsRes = await fetch("/api/analytics", { headers });
-        const tasksRes = await fetch("/api/calendar-tasks", { headers });
+        const coursesRes = await apiFetch("/api/courses");
+        const analyticsRes = await apiFetch("/api/analytics");
+        const tasksRes = await apiFetch("/api/calendar-tasks");
         const coursesData = await coursesRes.json();
         const analyticsData = await analyticsRes.json();
 
@@ -197,7 +198,7 @@ const Analytics = () => {
         Authorization: `Bearer ${token}`,
       };
 
-      const response = await fetch("/api/calendar-tasks", {
+      const response = await apiFetch("/api/calendar-tasks", {
         method: "POST",
         headers,
         body: JSON.stringify({

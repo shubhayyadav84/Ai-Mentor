@@ -1,4 +1,5 @@
 import { useState, useEffect, useRef, useCallback } from "react";
+import { apiFetch } from "../lib/api";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { useTranslation } from "react-i18next";
@@ -255,9 +256,7 @@ const DiscussionsPage = () => {
   // Fetch all courses (from courses.json via API)
   const fetchAllCourses = useCallback(async () => {
     try {
-      const res = await fetch("/api/courses", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const res = await apiFetch("/api/courses");
       if (!res.ok) return;
       const data = await res.json();
       // courses.json has popularCourses
@@ -366,9 +365,8 @@ const latestPostsByCourse = Object.values(
 
   // Create post
   const createPost = async (body) => {
-    const res = await fetch("/api/community", {
+    const res = await apiFetch("/api/community", {
       method: "POST",
-      headers: authHeaders(),
       body: JSON.stringify(body),
     });
     if (!res.ok) throw new Error("Failed to create post");
@@ -553,7 +551,7 @@ const latestPostsByCourse = Object.values(
   const fetchReports = useCallback(async () => {
     if (!isAdmin) return;
     try {
-      const res = await fetch("/api/community/reports", {
+      const res = await apiFetch("/api/community/reports", {
         headers: { Authorization: `Bearer ${token}` },
       });
       if (res.ok) setReports(await res.json());

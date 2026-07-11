@@ -49,9 +49,9 @@ const Dashboard = () => {
         };
 
         const [coursesResult, statsResult, certResult] = await Promise.allSettled([
-          fetch("/api/courses", { headers }),
-          fetch("/api/courses/stats/cards", { headers }),
-          fetch("/api/certificate/list", { headers }),
+          apiFetch("/api/courses"),
+          apiFetch("/api/courses/stats/cards"),
+          apiFetch("/api/certificate/list"),
         ]);
 
         const coursesRes = coursesResult.status === "fulfilled" ? coursesResult.value : null;

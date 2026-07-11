@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect, useCallback } from "react";
+import { apiFetch } from "../lib/api";
 import { createPortal } from "react-dom";
 import { useTranslation } from "react-i18next";
 
@@ -428,7 +429,7 @@ export default function Learning() {
     try {
       const token = localStorage.getItem("token");
       const mod = modules.find((m) => m.lessons?.some((l) => l.id === currentLesson.id));
-      const res = await fetch("/api/users/course-progress", {
+      const res = await apiFetch("/api/users/course-progress", {
         method: "PUT",
         headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` },
         body: JSON.stringify({
