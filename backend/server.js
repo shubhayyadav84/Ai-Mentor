@@ -44,6 +44,9 @@ const __dirname = path.dirname(__filename);
 
 const app = express();
 
+// Trust Render/Vercel reverse proxy so express-rate-limit works correctly
+app.set("trust proxy", 1);
+
 // ================= MIDDLEWARE =================
 app.use(express.json());
 
