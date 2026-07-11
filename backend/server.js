@@ -113,15 +113,13 @@ const startServer = async () => {
   try {
     await connectDB();
 
-    const isDevelopment = process.env.NODE_ENV !== "production";
-    const syncOptions = isDevelopment ? { alter: true } : {};
+    // NOTE: alter:true disabled to prevent Sequelize from attempting
+    // to cast existing TEXT enum columns to Postgres ENUM types,
+    // which fails on Neon. Schema changes must be done via raw SQL.
+    const syncOptions = {};
 
     await sequelize.sync(syncOptions);
-    console.log(
-      isDevelopment
-        ? "✅ Database models synced with schema auto-alter enabled (development)"
-        : "✅ Database models synced",
-    );
+    console.log("✅ Database models synced");
     app.listen(PORT, () => {
       console.log(`🚀 Server running on http://localhost:${PORT}`);
     });
