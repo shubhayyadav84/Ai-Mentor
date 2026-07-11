@@ -59,7 +59,8 @@ const SettingsPage = () => {
     }
     try {
       const token = localStorage.getItem("token");
-      await axios.put("/api/admin/change-password",
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
+      await axios.put(`${baseUrl}/api/admin/change-password`,
       { currentPassword:currentPassword, newPassword:newPassword },
       { headers: { Authorization: `Bearer ${token}` } }
       );

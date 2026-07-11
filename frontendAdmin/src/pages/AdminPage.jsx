@@ -1,4 +1,4 @@
-﻿import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { BookOpen, ChevronRight, CreditCard, GraduationCap, LayoutDashboard, LogOut, Settings, ShieldAlert, Users, X } from "lucide-react";
 import { useLocation, useNavigate } from "react-router-dom";
 
@@ -75,7 +75,8 @@ export default function AdminPage() {
   const [moduleId, setModuleId] = useState("");
 
   const callApi = async (path, options = {}) => {
-    const res = await fetch(`/api${path}`, {
+    const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
+    const res = await fetch(`${baseUrl}/api${path}`, {
       ...options,
       headers: {
         "Content-Type": "application/json",

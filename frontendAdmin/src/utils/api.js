@@ -5,8 +5,9 @@
  */
 export const callApi = async (path, options = {}) => {
   const token = localStorage.getItem("token");
+  const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
   
-  const response = await fetch(`/api${path}`, {
+  const response = await fetch(`${baseUrl}/api${path}`, {
     ...options,
     headers: {
       "Content-Type": "application/json",

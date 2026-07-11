@@ -8,8 +8,9 @@ const ProfilePage = () => {
   const fetchProfile = async () => {
     try {
       const token = localStorage.getItem("token");
+      const baseUrl = import.meta.env.VITE_API_BASE_URL || "";
 
-      const res = await fetch("/api/admin/profile", {
+      const res = await fetch(`${baseUrl}/api/admin/profile`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
