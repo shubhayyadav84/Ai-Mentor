@@ -18,5 +18,5 @@ COPY . .
 # Expose port (Render sets $PORT dynamically)
 EXPOSE 8000
 
-# Start application using uvicorn pointing to backend/api.py
-CMD ["sh", "-c", "uvicorn backend.api:app --host 0.0.0.0 --port ${PORT:-8000}"]
+# Start application by changing directory to backend to resolve python imports
+CMD ["sh", "-c", "cd backend && uvicorn api:app --host 0.0.0.0 --port ${PORT:-8000}"]
